@@ -14,3 +14,4 @@ print(df.info())
 
 df = df.drop(['PassengerId', 'Ticket', 'Cabin'],axis =1)
 print(df.head(10))
+df['Sex'] = df ['Sex'].map
