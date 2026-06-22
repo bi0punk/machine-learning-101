@@ -4,9 +4,10 @@ import matplotlib.pyplot as pyplot
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 
-df = pd.read_csv('titanic/train.csv')
-print(df.info())
+if __name__ == "__main__":
+    df = pd.read_csv('titanic/train.csv')
+    print(df.info())
 
-df = df.drop(['PassengerId', 'Ticket', 'Cabin'],axis =1)
-print(df.head(10))
-df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+    df = df.drop(['PassengerId', 'Ticket', 'Cabin'],axis =1)
+    print(df.head(10))
+    df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
