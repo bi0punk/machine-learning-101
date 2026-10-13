@@ -1,11 +1,9 @@
-import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split, cross_val_score
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.impute import SimpleImputer
-import seaborn as sns
-import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import cross_val_score, train_test_split
 
 
 def load_data(train_path="titanic/train.csv", test_path="titanic/test.csv"):
@@ -80,7 +78,7 @@ def main():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    print(f"\nEntrenando Random Forest...")
+    print("\nEntrenando Random Forest...")
     model = RandomForestClassifier(
         n_estimators=200, max_depth=10, random_state=42
     )
@@ -89,9 +87,9 @@ def main():
     y_pred = model.predict(X_val)
     accuracy = accuracy_score(y_val, y_pred)
 
-    print(f"\n=== Resultados ===")
+    print("\n=== Resultados ===")
     print(f"Precisión (validation): {accuracy:.4f}")
-    print(f"\nClassification Report:")
+    print("\nClassification Report:")
     print(classification_report(y_val, y_pred, target_names=["Fallecido", "Sobreviviente"]))
 
     cv_scores = cross_val_score(model, X, y, cv=5)
@@ -103,7 +101,7 @@ def main():
         "Survived": test_pred
     })
     submission.to_csv("titanic/predictions.csv", index=False)
-    print(f"\nPredicciones guardadas en titanic/predictions.csv")
+    print("\nPredicciones guardadas en titanic/predictions.csv")
     print(f"Distribución: {pd.Series(test_pred).value_counts().to_dict()}")
 
 
