@@ -23,13 +23,12 @@ Colección de proyectos introductorios de Machine Learning en Python. Actualment
 ## Características
 
 - Predicción de supervivencia en Titanic con scikit-learn (Random Forest, clasificación binaria).
-- Análisis exploratorio de datos (EDA) con pandas, seaborn y matplotlib.
 - Feature engineering: `FamilySize`, `IsAlone`, `Title` extraído del nombre.
 - Pipeline de preprocesamiento: limpieza de features, encoding, imputación mediana, train/validation split.
 - Validación cruzada (5 folds) y reporte de clasificación.
 - Generación de predicciones para el test set (CSV de submission).
 - Conversión Celsius a Fahrenheit mediante regresión lineal (`conversion/`).
-- Dataset de Titanic incluido (descargado de Kaggle).
+- Dataset de Titanic descargable con `scripts/download_data.sh` (no versionado).
 
 ## Arquitectura
 
@@ -62,7 +61,6 @@ flowchart TD
 - **pandas** — manipulación de datos
 - **numpy** — cómputo numérico
 - **scikit-learn** — modelos ML (regresión, clasificación)
-- **seaborn / matplotlib** — visualización
 
 ## Estructura del repositorio
 
@@ -78,12 +76,9 @@ machine-learning-101/
 ├── app.py                   # EDA + entrenamiento Random Forest Titanic
 ├── conversion/
 │   └── app.py               # Regresión lineal Celsius ↔ Fahrenheit
-├── titanic/
-│   ├── train.csv            # Dataset de entrenamiento (Kaggle)
-│   ├── test.csv             # Dataset de prueba
-│   └── gender_submission.csv
+├── titanic/                 # Dataset Kaggle (generado por scripts/download_data.sh; no versionado)
 ├── scripts/
-│   └── download_data.sh
+│   └── download_data.sh     # Descarga train/test/gender_submission
 └── tests/
     └── test_smoke.py
 ```
@@ -101,7 +96,10 @@ pip install -r requirements.txt
 
 ### Exploración y entrenamiento Titanic
 
+Descarga primero el dataset (no está versionado):
+
 ```bash
+bash scripts/download_data.sh
 python app.py
 ```
 
@@ -141,7 +139,7 @@ CI — GitHub Actions (`.github/workflows/ci.yml`) sobre Python 3.11 con `uv`, e
 
 ## Datos
 
-El dataset de Titanic proviene de la [Kaggle Titanic Competition](https://www.kaggle.com/competitions/titanic). Archivos en `titanic/`:
+El dataset de Titanic proviene de la [Kaggle Titanic Competition](https://www.kaggle.com/competitions/titanic). **No se incluye en el repo**: descárgalo con `bash scripts/download_data.sh` o manualmente. Archivos esperados en `titanic/`:
 
 | Archivo               | Descripción                       |
 |-----------------------|-----------------------------------|
@@ -150,6 +148,8 @@ El dataset de Titanic proviene de la [Kaggle Titanic Competition](https://www.ka
 | `gender_submission.csv` | Ejemplo de submission            |
 
 Los CSVs están en `.gitignore` — descargar manualmente si se clona fresco (ver `scripts/download_data.sh`). La salida `titanic/predictions.csv` se genera al ejecutar `app.py`.
+
+Para la conversión de temperatura, `conversion/app.py` espera `conversion/datos_temperatura.csv` (columnas `Celsius` y `Fahrenheit`), que tampoco se versiona.
 
 ## Roadmap
 
